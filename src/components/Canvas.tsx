@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { fabric } from 'fabric';
 import { Minus, Plus, Trash2, Download } from 'lucide-react';
 
@@ -93,8 +94,13 @@ export function Canvas({ onMaskGenerated }: CanvasProps) {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="flex gap-4 items-center">
-        <label className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer">
+      <motion.div
+        className="flex gap-4 items-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <label className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded cursor-pointer">
           Upload Image
           <input
             type="file"
@@ -105,41 +111,51 @@ export function Canvas({ onMaskGenerated }: CanvasProps) {
         </label>
 
         <div className="flex items-center gap-2">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
             onClick={() => setBrushSize(Math.max(1, brushSize - 5))}
             className="p-2 hover:bg-gray-100 rounded"
           >
             <Minus className="w-5 h-5" />
-          </button>
+          </motion.button>
           <span className="w-12 text-center">{brushSize}px</span>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
             onClick={() => setBrushSize(Math.min(100, brushSize + 5))}
             className="p-2 hover:bg-gray-100 rounded"
           >
             <Plus className="w-5 h-5" />
-          </button>
+          </motion.button>
         </div>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1, rotate: 10 }}
           onClick={clearCanvas}
           className="p-2 hover:bg-gray-100 rounded"
           title="Clear mask"
         >
           <Trash2 className="w-5 h-5" />
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1 }}
           onClick={generateMask}
-          className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+          className="flex items-center gap-2 bg-white hover:bg-black hover:text-white border-2 text-black px-4 py-2 rounded"
         >
           <Download className="w-5 h-5" />
           Generate Mask
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
-      <div className="border border-gray-300 rounded-lg overflow-hidden">
+      <motion.div
+        className="border border-gray-300 rounded-lg overflow-hidden"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <canvas ref={canvasRef} />
-      </div>
+      </motion.div>
     </div>
   );
 }
+
