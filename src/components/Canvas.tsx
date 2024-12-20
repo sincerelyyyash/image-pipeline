@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fabric } from 'fabric';
-import { Minus, Plus, Trash2, Download } from 'lucide-react';
+import { Minus, Plus, Trash2, Download, Upload } from 'lucide-react';
 
 interface CanvasProps {
   onMaskGenerated: (original: string, mask: string) => void;
@@ -100,7 +100,9 @@ export function Canvas({ onMaskGenerated }: CanvasProps) {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <label className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded cursor-pointer">
+        <label className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded"
+        >
+          <Upload className="w-5 h-5" />
           Upload Image
           <input
             type="file"
@@ -114,15 +116,15 @@ export function Canvas({ onMaskGenerated }: CanvasProps) {
           <motion.button
             whileHover={{ scale: 1.1 }}
             onClick={() => setBrushSize(Math.max(1, brushSize - 5))}
-            className="p-2 hover:bg-gray-100 rounded"
+            className="p-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded"
           >
             <Minus className="w-5 h-5" />
           </motion.button>
-          <span className="w-12 text-center">{brushSize}px</span>
+          <span className="w-12 text-center text-white">{brushSize}px</span>
           <motion.button
             whileHover={{ scale: 1.1 }}
             onClick={() => setBrushSize(Math.min(100, brushSize + 5))}
-            className="p-2 hover:bg-gray-100 rounded"
+            className="p-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded"
           >
             <Plus className="w-5 h-5" />
           </motion.button>
@@ -131,7 +133,7 @@ export function Canvas({ onMaskGenerated }: CanvasProps) {
         <motion.button
           whileHover={{ scale: 1.1, rotate: 10 }}
           onClick={clearCanvas}
-          className="p-2 hover:bg-gray-100 rounded"
+          className="p-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded"
           title="Clear mask"
         >
           <Trash2 className="w-5 h-5" />
@@ -140,7 +142,7 @@ export function Canvas({ onMaskGenerated }: CanvasProps) {
         <motion.button
           whileHover={{ scale: 1.1 }}
           onClick={generateMask}
-          className="flex items-center gap-2 bg-white hover:bg-black hover:text-white border-2 text-black px-4 py-2 rounded"
+          className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded"
         >
           <Download className="w-5 h-5" />
           Generate Mask
@@ -148,7 +150,7 @@ export function Canvas({ onMaskGenerated }: CanvasProps) {
       </motion.div>
 
       <motion.div
-        className="border border-gray-300 rounded-lg overflow-hidden"
+        className="border border-zinc-700 rounded-lg overflow-hidden bg-zinc-900"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
